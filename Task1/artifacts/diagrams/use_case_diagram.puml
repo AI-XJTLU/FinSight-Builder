@@ -1,0 +1,28 @@
+@startuml
+actor Player
+actor "Product Manager" as ProductManager
+actor "Customer Support Agent" as CustomerSupportAgent
+actor Admin
+
+rectangle "Feedback Management System" {
+  usecase "Submit feedback" as UC_SubmitFeedback
+  usecase "View privacy notice" as UC_ViewPrivacy
+  usecase "Manage consent" as UC_ManageConsent
+  usecase "Triage feedback" as UC_TriageFeedback
+  usecase "Follow up players" as UC_FollowUpPlayers
+  usecase "Secure access controls" as UC_SecureAccess
+}
+
+Player -- UC_SubmitFeedback
+Player -- UC_ViewPrivacy
+Player -- UC_ManageConsent
+
+ProductManager -- UC_TriageFeedback
+
+CustomerSupportAgent -- UC_FollowUpPlayers
+
+Admin -- UC_SecureAccess
+
+UC_SubmitFeedback ..> UC_ViewPrivacy : <<include>>
+UC_SubmitFeedback ..> UC_ManageConsent : <<extend>>
+@enduml
