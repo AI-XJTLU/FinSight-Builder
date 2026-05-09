@@ -1,39 +1,17 @@
-# Flask Feedback API + HTML Frontend
+# FinSight Builder Flask App
 
-An integrated Flask app that provides a simple **Feedback API** and an **interactive HTML frontend** in one server. Submit feedback via REST endpoints or use the browser UI—**the HTML frontend is served automatically** by Flask.
+This generated Flask app serves an educational stock watchlist and risk briefing website plus JSON API endpoints.
 
-## Setup
+Run locally:
 
-```bash
-pip install flask flask-cors
-```
-
-## Run
-
-```bash
+```powershell
+pip install -r requirements.txt
 python main.py
 ```
 
-## Access
+Open:
+- Website: `http://127.0.0.1:5005/`
+- Health: `http://127.0.0.1:5005/health`
+- Stocks: `http://127.0.0.1:5005/api/stocks`
 
-Open the app in your browser:
-
-- http://127.0.0.1:5005
-
-The interactive HTML page loads from the same server and lets you submit/view feedback without extra setup.
-
-## API Usage
-
-### Submit feedback (POST `/feedback`)
-
-```bash
-curl -X POST http://127.0.0.1:5005/feedback \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Alex","message":"Great app!","rating":5}'
-```
-
-### Retrieve feedback (GET `/feedback`)
-
-```bash
-curl http://127.0.0.1:5005/feedback
-```
+Boundary: the dataset is static and educational. The app does not provide financial advice, stock prediction, or trading recommendations.

@@ -3,436 +3,271 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Feedback Collection</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <title>FinSight Builder</title>
   <style>
     :root {
-      --page-bg: #f6f8fb;
-      --card-border: rgba(0, 0, 0, 0.08);
+      --bg: #f4f6f8;
+      --ink: #17202a;
+      --muted: #5c6670;
+      --line: #d8dee6;
+      --panel: #ffffff;
+      --accent: #166534;
+      --warn: #b45309;
+      --risk: #b91c1c;
     }
+    * { box-sizing: border-box; }
     body {
-      background: var(--page-bg);
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
     }
-    .app-header {
-      background: linear-gradient(135deg, #0d6efd 0%, #5b8def 100%);
-      color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.25);
+    header {
+      background: #102033;
+      color: white;
+      padding: 28px 20px;
     }
-    .app-header h1 {
-      letter-spacing: 0.2px;
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
     }
-    .shadow-soft {
-      box-shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+    h1, h2, h3 { margin: 0; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+    h2 { font-size: 1.2rem; margin-bottom: 14px; }
+    h3 { font-size: 1rem; }
+    .subtitle {
+      color: #c8d2df;
+      max-width: 760px;
+      margin: 10px 0 0;
     }
-    .card {
-      border-color: var(--card-border);
+    .banner {
+      width: 100%;
+      display: block;
+      aspect-ratio: 5 / 1.55;
+      object-fit: cover;
+      border-bottom: 1px solid var(--line);
+      background: #dce6ee;
     }
-    .feedback-card {
-      border-left: 4px solid rgba(13, 110, 253, 0.8);
+    main { padding: 24px 0 40px; }
+    .notice {
+      padding: 12px 14px;
+      border: 1px solid #f2d48a;
+      background: #fff8e6;
+      color: #5f3b00;
+      margin-bottom: 18px;
+      border-radius: 8px;
     }
-    .rating-badge {
-      font-variant-numeric: tabular-nums;
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+      gap: 18px;
+      align-items: start;
     }
-    .muted-small {
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+    .stock {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfcfd;
+    }
+    .stock-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+    }
+    .ticker { font-size: 1.35rem; font-weight: 700; }
+    .muted { color: var(--muted); }
+    .price { font-weight: 700; margin-top: 8px; }
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .low { background: #dcfce7; color: var(--accent); }
+    .medium { background: #fef3c7; color: var(--warn); }
+    .high { background: #fee2e2; color: var(--risk); }
+    form { display: grid; gap: 10px; }
+    label { font-weight: 700; font-size: 0.9rem; }
+    input, textarea, button {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      font: inherit;
+    }
+    button {
+      border: 0;
+      background: #1f6f50;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.secondary { background: #334155; }
+    .status {
+      min-height: 24px;
+      color: var(--muted);
       font-size: 0.92rem;
-      color: #6c757d;
     }
-    .required::after {
-      content: " *";
-      color: #dc3545;
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
     }
-    .skeleton {
-      background: linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.08), rgba(0,0,0,0.04));
-      background-size: 200% 100%;
-      animation: shimmer 1.2s infinite;
-      border-radius: 0.5rem;
-      height: 96px;
+    .summary div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      background: #fbfcfd;
     }
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.9rem;
+    .summary strong { display: block; font-size: 1.35rem; }
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+      header { padding: 22px 16px; }
     }
   </style>
 </head>
-
 <body>
-  <header class="app-header py-4">
-    <div class="container">
-      <div class="d-flex align-items-start align-items-md-center justify-content-between flex-column flex-md-row gap-3">
-        <div>
-          <h1 class="h3 mb-1">Feedback Collection System</h1>
-          <div class="muted-small text-white-50">Submit feedback and view existing responses</div>
-        </div>
-        <div class="d-flex gap-2">
-          <button id="refreshBtn" type="button" class="btn btn-light btn-sm">Refresh Feedback</button>
-        </div>
-      </div>
+  <header>
+    <div class="wrap">
+      <h1>FinSight Builder</h1>
+      <p class="subtitle">AI-generated Flask API and website for a sample stock watchlist and educational risk briefing dashboard.</p>
     </div>
   </header>
 
-  <main class="container my-4 my-md-5">
-    <div id="alertHost" class="mb-3"></div>
+  <img class="banner" src="static/generated_market_banner.png" alt="Automatically generated market dashboard banner" />
 
-    <div class="row g-4">
-      <div class="col-12 col-lg-5">
-        <div class="card shadow-soft">
-          <div class="card-body p-4">
-            <h2 class="h5 mb-3">Submit Feedback</h2>
+  <main class="wrap">
+    <div class="notice">For educational demonstration only. Not financial advice. Prices are mock sample values.</div>
 
-            <form id="feedbackForm" class="needs-validation" novalidate>
-              <div class="mb-3">
-                <label for="name" class="form-label required">Name</label>
-                <input id="name" name="name" type="text" class="form-control" placeholder="Your name" required maxlength="120" autocomplete="name" />
-                <div class="invalid-feedback">Please enter your name.</div>
-              </div>
+    <div class="grid">
+      <section class="panel">
+        <h2>Sample Stock Briefings</h2>
+        <div id="stockCards" class="cards"></div>
+      </section>
 
-              <div class="mb-3">
-                <label for="email" class="form-label required">Email</label>
-                <input id="email" name="email" type="email" class="form-control" placeholder="you@example.com" required maxlength="254" autocomplete="email" />
-                <div class="invalid-feedback">Please enter a valid email address.</div>
-              </div>
-
-              <div class="mb-3">
-                <label for="rating" class="form-label required">Rating</label>
-                <select id="rating" name="rating" class="form-select" required>
-                  <option value="" selected disabled>Select a rating</option>
-                  <option value="1">1 - Very poor</option>
-                  <option value="2">2 - Poor</option>
-                  <option value="3">3 - Okay</option>
-                  <option value="4">4 - Good</option>
-                  <option value="5">5 - Excellent</option>
-                </select>
-                <div class="invalid-feedback">Please select a rating (1-5).</div>
-              </div>
-
-              <div class="mb-3">
-                <label for="message" class="form-label required">Feedback Message</label>
-                <textarea id="message" name="message" class="form-control" rows="5" placeholder="Write your feedback..." required maxlength="5000"></textarea>
-                <div class="invalid-feedback">Please enter your feedback message.</div>
-              </div>
-
-              <div class="d-grid d-sm-flex gap-2">
-                <button id="submitBtn" type="submit" class="btn btn-primary">
-                  Submit
-                </button>
-                <button id="resetBtn" type="button" class="btn btn-outline-secondary">
-                  Clear
-                </button>
-              </div>
-
-              <div class="mt-3 muted-small">
-                Endpoint: <span class="mono">http://127.0.0.1:5005/feedback</span>
-              </div>
-            </form>
-          </div>
+      <aside class="panel">
+        <h2>Risk Summary</h2>
+        <div class="summary">
+          <div><strong id="lowCount">0</strong><span class="muted">Low</span></div>
+          <div><strong id="mediumCount">0</strong><span class="muted">Medium</span></div>
+          <div><strong id="highCount">0</strong><span class="muted">High</span></div>
         </div>
-      </div>
 
-      <div class="col-12 col-lg-7">
-        <div class="card shadow-soft">
-          <div class="card-body p-4">
-            <div class="d-flex align-items-start align-items-md-center justify-content-between gap-3 flex-column flex-md-row">
-              <div>
-                <h2 class="h5 mb-1">Existing Feedback</h2>
-                <div id="feedbackMeta" class="muted-small">Loading…</div>
-              </div>
-              <div class="d-flex gap-2">
-                <div id="loadingPill" class="badge text-bg-secondary d-none">Loading</div>
-              </div>
-            </div>
+        <h2>Add Watchlist Ticker</h2>
+        <form id="watchlistForm">
+          <label for="ticker">Ticker</label>
+          <input id="ticker" name="ticker" placeholder="AAPL" maxlength="8" required />
+          <button type="submit">Add Ticker</button>
+          <div id="watchlistStatus" class="status"></div>
+        </form>
 
-            <hr class="my-3" />
-
-            <div id="feedbackList" class="d-grid gap-3" aria-live="polite" aria-busy="false">
-              <div class="skeleton"></div>
-              <div class="skeleton"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <h2 style="margin-top:18px">Feedback</h2>
+        <form id="feedbackForm">
+          <label for="name">Name</label>
+          <input id="name" name="name" required />
+          <label for="rating">Rating 1-5</label>
+          <input id="rating" name="rating" type="number" min="1" max="5" required />
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="3" required></textarea>
+          <button class="secondary" type="submit">Submit Feedback</button>
+          <div id="feedbackStatus" class="status"></div>
+        </form>
+      </aside>
     </div>
   </main>
 
   <script>
-    (function () {
-      "use strict";
+    const stockCards = document.getElementById("stockCards");
+    const watchlistStatus = document.getElementById("watchlistStatus");
+    const feedbackStatus = document.getElementById("feedbackStatus");
 
-      const API_URL = "http://127.0.0.1:5005/feedback";
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-      const alertHost = document.getElementById("alertHost");
-      const form = document.getElementById("feedbackForm");
-      const submitBtn = document.getElementById("submitBtn");
-      const resetBtn = document.getElementById("resetBtn");
-      const refreshBtn = document.getElementById("refreshBtn");
-
-      const nameEl = document.getElementById("name");
-      const emailEl = document.getElementById("email");
-      const ratingEl = document.getElementById("rating");
-      const messageEl = document.getElementById("message");
-
-      const feedbackList = document.getElementById("feedbackList");
-      const feedbackMeta = document.getElementById("feedbackMeta");
-      const loadingPill = document.getElementById("loadingPill");
-
-      function escapeHtml(str) {
-        return String(str ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
-      }
-
-      function showAlert(type, title, message, autoDismissMs = 6000) {
-        const id = "a_" + Math.random().toString(16).slice(2);
-        const safeTitle = escapeHtml(title);
-        const safeMessage = escapeHtml(message);
-
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = `
-          <div id="${id}" class="alert alert-${type} alert-dismissible fade show shadow-sm" role="alert">
-            <div class="fw-semibold mb-1">${safeTitle}</div>
-            <div>${safeMessage}</div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    async function loadStocks() {
+      const [stocksResponse, riskResponse] = await Promise.all([
+        fetch("/api/stocks"),
+        fetch("/api/risk-summary")
+      ]);
+      const stocksData = await stocksResponse.json();
+      const riskData = await riskResponse.json();
+      stockCards.innerHTML = stocksData.stocks.map((stock) => `
+        <article class="stock">
+          <div class="stock-top">
+            <div>
+              <div class="ticker">${escapeHtml(stock.ticker)}</div>
+              <h3>${escapeHtml(stock.name)}</h3>
+            </div>
+            <span class="badge ${escapeHtml(stock.risk_level)}">${escapeHtml(stock.risk_level)}</span>
           </div>
-        `;
-        const alertEl = wrapper.firstElementChild;
-        alertHost.appendChild(alertEl);
+          <div class="muted">${escapeHtml(stock.sector)}</div>
+          <div class="price">$${Number(stock.mock_price).toFixed(2)}</div>
+          <p>${escapeHtml(stock.briefing)}</p>
+        </article>
+      `).join("");
+      document.getElementById("lowCount").textContent = riskData.risk_summary.low;
+      document.getElementById("mediumCount").textContent = riskData.risk_summary.medium;
+      document.getElementById("highCount").textContent = riskData.risk_summary.high;
+    }
 
-        if (autoDismissMs && Number.isFinite(autoDismissMs)) {
-          setTimeout(() => {
-            if (alertEl && alertEl.parentNode) {
-              alertEl.classList.remove("show");
-              alertEl.classList.add("hide");
-              setTimeout(() => alertEl.remove(), 250);
-            }
-          }, autoDismissMs);
-        }
-      }
-
-      function setLoading(isLoading) {
-        submitBtn.disabled = isLoading;
-        refreshBtn.disabled = isLoading;
-        loadingPill.classList.toggle("d-none", !isLoading);
-        feedbackList.setAttribute("aria-busy", String(isLoading));
-      }
-
-      function normalizeFeedbackList(data) {
-        if (Array.isArray(data)) return data;
-        if (data && Array.isArray(data.feedback)) return data.feedback;
-        if (data && Array.isArray(data.items)) return data.items;
-        if (data && Array.isArray(data.data)) return data.data;
-        return [];
-      }
-
-      function renderFeedback(items) {
-        const list = Array.isArray(items) ? items : [];
-
-        feedbackList.innerHTML = "";
-        if (!list.length) {
-          feedbackList.innerHTML = `
-            <div class="text-center text-muted py-4">
-              <div class="fw-semibold mb-1">No feedback yet</div>
-              <div class="muted-small">Be the first to submit feedback using the form.</div>
-            </div>
-          `;
-          feedbackMeta.textContent = "0 entries";
-          return;
-        }
-
-        feedbackMeta.textContent = `${list.length} entr${list.length === 1 ? "y" : "ies"}`;
-
-        const fragment = document.createDocumentFragment();
-        list.forEach((item) => {
-          const name = item?.name ?? item?.user_name ?? item?.username ?? "Anonymous";
-          const ratingRaw = item?.rating ?? item?.score ?? item?.stars;
-          const rating = Number(ratingRaw);
-          const msg = item?.message ?? item?.feedback ?? item?.text ?? "";
-
-          const card = document.createElement("div");
-          card.className = "card feedback-card";
-          const ratingSafe = Number.isFinite(rating) ? Math.min(5, Math.max(1, rating)) : null;
-          const ratingLabel = ratingSafe ? `${ratingSafe}/5` : "N/A";
-
-          card.innerHTML = `
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start gap-3">
-                <div class="me-2">
-                  <div class="fw-semibold">${escapeHtml(name)}</div>
-                  <div class="muted-small">Rating: <span class="badge text-bg-primary rating-badge">${escapeHtml(ratingLabel)}</span></div>
-                </div>
-              </div>
-              <div class="mt-2">${escapeHtml(msg).replace(/\n/g, "<br>")}</div>
-            </div>
-          `;
-          fragment.appendChild(card);
-        });
-
-        feedbackList.appendChild(fragment);
-      }
-
-      async function safeReadErrorText(res) {
-        try {
-          const ct = (res.headers.get("content-type") || "").toLowerCase();
-          if (ct.includes("application/json")) {
-            const j = await res.json();
-            const msg = j?.error || j?.message || JSON.stringify(j);
-            return msg;
-          }
-          const t = await res.text();
-          return t || `${res.status} ${res.statusText}`;
-        } catch {
-          return `${res.status} ${res.statusText}`;
-        }
-      }
-
-      function networkFriendlyMessage(err) {
-        const msg = (err && err.message) ? err.message : String(err || "");
-        if (/failed to fetch/i.test(msg) || /networkerror/i.test(msg)) {
-          return "Unable to reach the server. Please check your connection and confirm the API is running at 127.0.0.1:5005.";
-        }
-        if (/timeout/i.test(msg)) {
-          return "The request timed out. Please try again.";
-        }
-        return "Something went wrong while communicating with the server. Please try again.";
-      }
-
-      async function fetchAllFeedback({ showAlerts = false } = {}) {
-        setLoading(true);
-
-        // Skeleton loader
-        feedbackList.innerHTML = `
-          <div class="skeleton"></div>
-          <div class="skeleton"></div>
-        `;
-        feedbackMeta.textContent = "Loading…";
-
-        try {
-          const res = await fetch(API_URL, {
-            method: "GET",
-            headers: { "Accept": "application/json" }
-          });
-
-          if (!res.ok) {
-            const details = await safeReadErrorText(res);
-            throw new Error(`Server error (${res.status}): ${details}`);
-          }
-
-          const data = await res.json().catch(() => ({}));
-          const items = normalizeFeedbackList(data);
-          renderFeedback(items);
-
-          if (showAlerts) {
-            showAlert("success", "Feedback refreshed", "Latest feedback has been loaded.");
-          }
-        } catch (err) {
-          feedbackList.innerHTML = `
-            <div class="alert alert-warning mb-0" role="alert">
-              <div class="fw-semibold mb-1">Couldn't load feedback</div>
-              <div class="mb-2">${escapeHtml(networkFriendlyMessage(err))}</div>
-              <button type="button" class="btn btn-sm btn-outline-primary" id="retryLoadBtn">Retry</button>
-            </div>
-          `;
-          feedbackMeta.textContent = "Unavailable";
-
-          const retryBtn = document.getElementById("retryLoadBtn");
-          if (retryBtn) {
-            retryBtn.addEventListener("click", () => fetchAllFeedback({ showAlerts: false }));
-          }
-
-          if (showAlerts) {
-            showAlert("danger", "Load failed", networkFriendlyMessage(err));
-          }
-        } finally {
-          setLoading(false);
-        }
-      }
-
-      function validateForm() {
-        // Use browser validation + Bootstrap styles
-        const valid = form.checkValidity();
-        form.classList.add("was-validated");
-        return valid;
-      }
-
-      function clearForm() {
-        form.reset();
-        form.classList.remove("was-validated");
-        nameEl.focus();
-      }
-
-      async function submitFeedback(payload) {
-        try {
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          if (!res.ok) {
-            const details = await safeReadErrorText(res);
-            throw new Error(`Server error (${res.status}): ${details}`);
-          }
-
-          // Try to parse response JSON, but don't require it
-          let responseData = null;
-          try { responseData = await res.json(); } catch { /* ignore */ }
-          return responseData;
-        } catch (err) {
-          throw err;
-        }
-      }
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (!validateForm()) {
-          showAlert("warning", "Please fix the highlighted fields", "All fields are required.");
-          return;
-        }
-
-        const payload = {
-          name: nameEl.value.trim(),
-          email: emailEl.value.trim(),
-          message: messageEl.value.trim(),
-          rating: Number(ratingEl.value)
-        };
-
-        setLoading(true);
-        try {
-          await submitFeedback(payload);
-          showAlert("success", "Thank you!", "Your feedback has been submitted successfully.");
-          clearForm();
-          await fetchAllFeedback({ showAlerts: false });
-        } catch (err) {
-          showAlert("danger", "Submission failed", networkFriendlyMessage(err));
-        } finally {
-          setLoading(false);
-        }
+    document.getElementById("watchlistForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const ticker = document.getElementById("ticker").value.trim();
+      const response = await fetch("/api/watchlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ticker })
       });
+      const data = await response.json();
+      watchlistStatus.textContent = response.ok
+        ? `Watchlist: ${data.watchlist.join(", ")}`
+        : data.error;
+    });
 
-      resetBtn.addEventListener("click", () => {
-        clearForm();
+    document.getElementById("feedbackForm").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const payload = {
+        name: document.getElementById("name").value.trim(),
+        rating: document.getElementById("rating").value,
+        message: document.getElementById("message").value.trim()
+      };
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
       });
+      const data = await response.json();
+      feedbackStatus.textContent = response.ok ? "Feedback submitted." : data.error;
+      if (response.ok) event.target.reset();
+    });
 
-      refreshBtn.addEventListener("click", () => {
-        fetchAllFeedback({ showAlerts: true });
-      });
-
-      // Initialize
-      fetchAllFeedback({ showAlerts: false });
-    })();
+    loadStocks().catch(() => {
+      stockCards.innerHTML = "<p>Unable to load stock data. Start the Flask API and refresh.</p>";
+    });
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
