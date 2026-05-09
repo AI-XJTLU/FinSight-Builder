@@ -1,0 +1,20 @@
+FinSight Builder local runtime check
+
+Date checked: 2026-05-10
+
+Commands:
+- python Task1/artifacts/app/flask/main.py
+- Invoke-WebRequest http://127.0.0.1:5005/health
+- Invoke-WebRequest http://127.0.0.1:5005/api/stocks
+- Invoke-WebRequest http://127.0.0.1:5005/
+
+Results:
+- /health returned HTTP 200 and JSON status "ok".
+- /api/stocks returned HTTP 200 and four sample educational stock records.
+- / returned HTTP 200 and served the FinSight Builder website HTML.
+
+Docker status:
+- Docker Compose reached the image build stage.
+- The build could not complete because Docker Hub token retrieval for python:3.11-slim timed out on the local network.
+- Retry after Docker Hub connectivity succeeds:
+  docker compose -f Task1/artifacts/app/docker-compose.yml up --build -d

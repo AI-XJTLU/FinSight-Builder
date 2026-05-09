@@ -1,0 +1,9 @@
+﻿
+
+StatusCode : 200
+Content    : {"disclaimer":"For educational demonstration only. Not financial advice
+             .","service":"FinSight Builder","status":"ok"}
+             
+
+
+

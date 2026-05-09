@@ -1,0 +1,2 @@
+﻿NAME               IMAGE                  COMMAND            SERVICE            CREATED         STATUS                  PORTS
+finsight-builder   app-finsight-builder   "python main.py"   finsight-builder   2 seconds ago   Up Less than a second   0.0.0.0:5005->5005/tcp, [::]:5005->5005/tcp
