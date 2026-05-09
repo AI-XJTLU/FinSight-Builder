@@ -1,16 +1,12 @@
-version: '3.8'
-
 services:
-  flask-app:
+  finsight-builder:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: feedback-app
+    container_name: finsight-builder
     ports:
       - "5005:5005"
     environment:
       - FLASK_ENV=production
       - FLASK_APP=main.py
-    volumes:
-      - ./flask:/app
     restart: unless-stopped
