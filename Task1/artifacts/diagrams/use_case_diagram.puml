@@ -1,28 +1,26 @@
 @startuml
-actor Player
-actor "Product Manager" as ProductManager
-actor "Customer Support Agent" as CustomerSupportAgent
-actor Admin
-
-rectangle "Feedback Management System" {
-  usecase "Submit feedback" as UC_SubmitFeedback
-  usecase "View privacy notice" as UC_ViewPrivacy
-  usecase "Manage consent" as UC_ManageConsent
-  usecase "Triage feedback" as UC_TriageFeedback
-  usecase "Follow up players" as UC_FollowUpPlayers
-  usecase "Secure access controls" as UC_SecureAccess
+left to right direction
+title FinSight Builder Use Case Diagram
+actor "Student Developer" as Developer
+actor "Learner Investor" as Learner
+actor "Coursework Marker" as Marker
+rectangle "FinSight Builder" {
+  usecase "Generate SDLC docs" as UC1
+  usecase "Generate UML diagrams" as UC2
+  usecase "Generate Flask API and website" as UC3
+  usecase "View stock risk briefing" as UC4
+  usecase "Add ticker to watchlist" as UC5
+  usecase "Submit feedback" as UC6
+  usecase "Run tests and Docker deployment" as UC7
+  usecase "Review submission evidence" as UC8
 }
-
-Player -- UC_SubmitFeedback
-Player -- UC_ViewPrivacy
-Player -- UC_ManageConsent
-
-ProductManager -- UC_TriageFeedback
-
-CustomerSupportAgent -- UC_FollowUpPlayers
-
-Admin -- UC_SecureAccess
-
-UC_SubmitFeedback ..> UC_ViewPrivacy : <<include>>
-UC_SubmitFeedback ..> UC_ManageConsent : <<extend>>
+Developer --> UC1
+Developer --> UC2
+Developer --> UC3
+Developer --> UC7
+Learner --> UC4
+Learner --> UC5
+Learner --> UC6
+Marker --> UC8
+Marker --> UC7
 @enduml

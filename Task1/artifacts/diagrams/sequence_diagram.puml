@@ -1,0 +1,18 @@
+@startuml
+title FinSight Builder Stock Briefing Sequence
+actor Learner
+participant "Website" as Web
+participant "Flask API" as API
+database "Sample Stock Data" as Data
+Learner -> Web: Open dashboard
+Web -> API: GET /api/stocks
+API -> Data: Read sample stocks
+Data --> API: Stock records
+API --> Web: JSON with disclaimer
+Web --> Learner: Render cards and generated banner
+Learner -> Web: Submit ticker
+Web -> API: POST /api/watchlist
+API -> Data: Validate ticker
+API --> Web: Watchlist update or validation error
+Web --> Learner: Show result
+@enduml
