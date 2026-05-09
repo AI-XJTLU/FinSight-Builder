@@ -1,3 +1,32 @@
-{
-  "user_stories": "{\n  \"user_stories\": [\n    {\n      \"id\": 1,\n      \"role\": \"Player\",\n      \"goal\": \"Submit game feedback with contact details\",\n      \"benefit\": \"I can be followed up and know my feedback was received\",\n      \"acceptance_criteria\": [\n        \"Form supports category, description, severity, optional attachment, consent, and contact fields\",\n        \"After submit, user sees confirmation with a reference ID\"\n      ]\n    },\n    {\n      \"id\": 2,\n      \"role\": \"Player\",\n      \"goal\": \"Understand privacy and consent for sharing contact info\",\n      \"benefit\": \"I feel safe providing details\",\n      \"acceptance_criteria\": [\n        \"Consent checkbox is required when contact details are provided\",\n        \"Privacy/retention notice is visible from the form\"\n      ]\n    },\n    {\n      \"id\": 3,\n      \"role\": \"Product Manager\",\n      \"goal\": \"Triage incoming feedback in a dashboard\",\n      \"benefit\": \"I can prioritize and drive items to resolution\",\n      \"acceptance_criteria\": [\n        \"Dashboard provides search plus filter/sort by status, severity, tag, and assignee\",\n        \"PM can update status, add tags, assign owner, and add internal notes\"\n      ]\n    },\n    {\n      \"id\": 4,\n      \"role\": \"Customer Support Agent\",\n      \"goal\": \"Follow up with players and log outcomes\",\n      \"benefit\": \"I can resolve issues efficiently with history tracked\",\n      \"acceptance_criteria\": [\n        \"Feedback detail shows contact info and full activity history\",\n        \"Agent can send via template/link-out and record notes and follow-up reminders\"\n      ]\n    },\n    {\n      \"id\": 5,\n      \"role\": \"Admin\",\n      \"goal\": \"Protect feedback data with secure access and controls\",\n      \"benefit\": \"Sensitive data is handled safely and compliantly\",\n      \"acceptance_criteria\": [\n        \"Internal users authenticate via SSO and access is role-based\",\n        \"Data is encrypted in transit/at rest and changes are captured in an audit trail\"\n      ]\n    }\n  ]\n}"
-}
+[
+  {
+    "id": "US-001",
+    "role": "learner investor",
+    "story": "I want to view a sample stock watchlist dashboard so that I can compare educational risk briefings.",
+    "acceptance_criteria": [
+      "The website shows at least three stocks.",
+      "Each stock includes ticker, mock price, risk level, and briefing.",
+      "The disclaimer is visible."
+    ]
+  },
+  {
+    "id": "US-002",
+    "role": "learner investor",
+    "story": "I want to add a supported ticker to my watchlist so that I can focus on examples I am studying.",
+    "acceptance_criteria": [
+      "Missing ticker returns 400.",
+      "Known ticker returns 201.",
+      "Unknown ticker returns 404."
+    ]
+  },
+  {
+    "id": "US-003",
+    "role": "coursework marker",
+    "story": "I want to inspect tests and deployment files so that I can verify testing, CI/CD, and Docker evidence.",
+    "acceptance_criteria": [
+      "pytest tests cover core endpoints.",
+      "Dockerfile and docker-compose.yml exist.",
+      "CI workflow includes pytest and Docker build."
+    ]
+  }
+]

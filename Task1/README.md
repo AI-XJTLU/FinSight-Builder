@@ -1,34 +1,33 @@
-# From Co-pilot to Creator Following the AI-Driven Development Lifecycle Methodology
+# FinSight Builder Task1
 
-Follow these steps to navigate the lab and build your application:
+Task1 contains the single coursework notebook and the generated artifacts for the FinSight Builder software component.
 
-1. **Step 1: Setup & Environment**
-   - Run the initial cells to import libraries and initialise the LLM client.
-   - Verify your environment is ready with the recommended models table.
+Notebook:
+- `DTS114_FinSight_Builder.ipynb`
 
-2. **Step 2: Business Problem Input**
-   - Edit the `business_problem` variable with your chosen challenge.
-   - This serves as the foundation for all generated artifacts.
+Generated artifacts:
+- SDLC documentation in `artifacts/*.md` and `artifacts/user_stories.json`
+- UML source in `artifacts/diagrams/*.puml`
+- Flask app in `artifacts/app/flask`
+- Tests in `artifacts/app/tests`
+- Docker and CI files in `artifacts/app`
 
-3. **Step 3: Generate SDLC Artifacts**
-   - Execute each section to prompt the LLM for:
-     - Problem Statement
-     - Personas
-     - Requirements
-     - User Stories
-     - API Endpoints
-   - Review and refine the AI-generated outputs as needed.
+Run tests from the repository root:
 
-4. **Step 4: Build and Test the Application**
-   - Use the generated artifacts to construct the FlaskAPI app in `app/main.py`.
-   - Run the application in local (for testing), then as a container (for deployment):
+```powershell
+python -m pytest Task1/artifacts/app/tests
+```
 
-5. **Step 5: Validation and Iteration**
-   - Execute the test scripts to validate functionality.
-   - Iterate on prompts or code based on results.
+Run the Flask app:
 
-### Tips for Success
+```powershell
+python Task1/artifacts/app/flask/main.py
+```
 
-- **Experiment with Prompts**: Tweak LLM prompts for better outputs.
-- **Debugging**: Check console logs for errors and refer to the artifacts folder.
-- **Customisation**: Adapt the business problem to your interests for a personalised experience.
+Run with Docker Compose:
+
+```powershell
+docker compose -f Task1/artifacts/app/docker-compose.yml up --build
+```
+
+Boundary: this project uses sample educational stock data only. It does not provide stock prediction, trading advice, or investment recommendations.
