@@ -1,18 +1,37 @@
 [
   {
     "id": "US-001",
-    "role": "learner investor",
-    "story": "I want to view a sample stock watchlist dashboard so that I can compare educational risk briefings.",
+    "role": "learner user",
+    "story": "I want to open the dashboard so that I can review educational stock risk briefings with a visible disclaimer.",
+    "requirement": "FR-004",
+    "api_endpoint": "/ and /api/stocks",
+    "test_case": "test_index_page_and_generated_image_reference; test_stocks_have_required_fields",
     "acceptance_criteria": [
-      "The website shows at least three stocks.",
-      "Each stock includes ticker, mock price, risk level, and briefing.",
-      "The disclaimer is visible."
+      "Home page returns 200.",
+      "Generated banner is referenced in index.html.",
+      "Stock cards include ticker, mock price, risk level, and briefing."
     ]
   },
   {
     "id": "US-002",
-    "role": "learner investor",
-    "story": "I want to add a supported ticker to my watchlist so that I can focus on examples I am studying.",
+    "role": "learner user",
+    "story": "I want to inspect one supported ticker so that I can focus on a single educational briefing.",
+    "requirement": "FR-003",
+    "api_endpoint": "/api/stocks/<ticker>",
+    "test_case": "test_stock_detail_and_unknown_ticker",
+    "acceptance_criteria": [
+      "Known ticker returns 200.",
+      "Unknown ticker returns 404.",
+      "Response includes disclaimer."
+    ]
+  },
+  {
+    "id": "US-003",
+    "role": "learner user",
+    "story": "I want to add a supported ticker to my watchlist so that I can track examples I am studying.",
+    "requirement": "FR-003",
+    "api_endpoint": "/api/watchlist",
+    "test_case": "test_watchlist_validation_and_success",
     "acceptance_criteria": [
       "Missing ticker returns 400.",
       "Known ticker returns 201.",
@@ -20,13 +39,29 @@
     ]
   },
   {
-    "id": "US-003",
-    "role": "coursework marker",
-    "story": "I want to inspect tests and deployment files so that I can verify testing, CI/CD, and Docker evidence.",
+    "id": "US-004",
+    "role": "learner user",
+    "story": "I want to submit feedback so that the app demonstrates validated form handling.",
+    "requirement": "FR-003",
+    "api_endpoint": "/api/feedback",
+    "test_case": "test_feedback_validation_and_success; test_feedback_get_returns_submitted_items",
     "acceptance_criteria": [
-      "pytest tests cover core endpoints.",
-      "Dockerfile and docker-compose.yml exist.",
-      "CI workflow includes pytest and Docker build."
+      "Missing fields return 400.",
+      "Valid feedback returns 201.",
+      "GET feedback returns the submitted item."
+    ]
+  },
+  {
+    "id": "US-005",
+    "role": "coursework marker",
+    "story": "I want to inspect tests, Docker, CI, and evidence outputs so that I can assess the software workflow.",
+    "requirement": "FR-005/FR-006",
+    "api_endpoint": "N/A",
+    "test_case": "test_risk_summary_shape plus CI pytest command",
+    "acceptance_criteria": [
+      "pytest tests pass.",
+      "CI workflow runs pytest and Docker build.",
+      "Task2 evidence file names are listed."
     ]
   }
 ]

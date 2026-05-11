@@ -62,3 +62,31 @@ def test_risk_summary_shape():
     response = client().get("/api/risk-summary")
     assert response.status_code == 200
     assert set(response.get_json()["risk_summary"]) == {"low", "medium", "high"}
+
+
+def test_index_page_and_generated_image_reference():
+    response = client().get("/")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+    assert "generated_market_banner.png" in html
+    assert "API Evidence" in html
+
+
+def test_generated_image_file_exists():
+    image_path = APP_DIR / "static" / "generated_market_banner.png"
+    assert image_path.exists()
+    assert image_path.stat().st_size > 0
+
+
+def test_feedback_get_returns_submitted_items():
+    test_client = client()
+    created = test_client.post(
+        "/api/feedback",
+        json={"name": "Feiyu", "message": "Useful risk summary", "rating": 4},
+    )
+    response = test_client.get("/api/feedback")
+    assert created.status_code == 201
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data["count"] == 1
+    assert data["items"][0]["message"] == "Useful risk summary"

@@ -1,18 +1,23 @@
 @startuml
-title FinSight Builder Stock Briefing Sequence
-actor Learner
-participant "Website" as Web
-participant "Flask API" as API
+title FinSight Builder Dashboard and API Sequence
+autonumber
+actor "Learner User" as User
+participant "Browser UI" as Browser
+participant "Flask Routes" as Flask
+participant "API Layer" as API
 database "Sample Stock Data" as Data
-Learner -> Web: Open dashboard
-Web -> API: GET /api/stocks
-API -> Data: Read sample stocks
+User -> Browser: Open dashboard
+Browser -> Flask: GET /
+Flask --> Browser: index.html with generated image reference
+Browser -> API: GET /api/stocks
+API -> Data: Read fixed sample stock data
 Data --> API: Stock records
-API --> Web: JSON with disclaimer
-Web --> Learner: Render cards and generated banner
-Learner -> Web: Submit ticker
-Web -> API: POST /api/watchlist
-API -> Data: Validate ticker
-API --> Web: Watchlist update or validation error
-Web --> Learner: Show result
+API --> Browser: JSON stock list + disclaimer
+Browser --> User: Render stock cards and generated banner
+User -> Browser: Submit watchlist ticker or feedback
+Browser -> API: POST /api/watchlist or /api/feedback
+API -> Data: Validate ticker or input fields
+API --> Browser: JSON success or validation error
+Browser --> User: Show result
+note over API,Data: Educational sample data only; no prediction or financial advice.
 @enduml

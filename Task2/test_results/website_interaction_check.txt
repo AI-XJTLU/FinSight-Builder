@@ -1,0 +1,14 @@
+Website/API interaction verification
+Base URL: http://127.0.0.1:5005
+
+home_loads: PASS | 200
+stocks_api_populates_cards_source: PASS | 4
+risk_summary_api: PASS | {'high': 2, 'low': 1, 'medium': 1}
+watchlist_submit_success: PASS | ['AAPL']
+watchlist_submit_error: PASS | {'error': 'ticker is not in the educational sample dataset'}
+feedback_submit_success: PASS | {'feedback': {'id': 2, 'message': 'Interaction check', 'name': 'Feiyu', 'rating': 5}, 'message': 'feedback submitted'}
+feedback_get_returns_items: PASS | {'count': 2, 'items': [{'id': 1, 'message': 'Interaction check', 'name': 'Feiyu', 'rating': 5}, {'id': 2, 'message': 'Interaction check', 'name': 'Feiyu', 'rating': 5}]}
+known_ticker_detail: PASS | 200
+unknown_ticker_404: PASS | {'disclaimer': 'For educational demonstration only. Not financial advice.', 'error': 'stock_not_found'}
+
+Overall: PASS
