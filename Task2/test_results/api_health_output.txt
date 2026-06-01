@@ -1,9 +1,6 @@
-﻿
+Checked after Docker Compose deployment on 1 June 2026.
 
-StatusCode : 200
-Content    : {"disclaimer":"For educational demonstration only. Not financial advice
-             .","service":"FinSight Builder","status":"ok"}
-             
+GET http://127.0.0.1:5005/health
+HTTP 200
 
-
-
+{"disclaimer":"For educational demonstration only. Not financial advice.","service":"FinSight Club Dashboard","status":"ok"}

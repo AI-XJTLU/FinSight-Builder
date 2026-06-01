@@ -1,20 +1,21 @@
-FinSight Builder local runtime check
+# Docker Runtime Check
 
-Date checked: 2026-05-10
+Checked on 1 June 2026 after:
 
-Commands:
-- python Task1/artifacts/app/flask/main.py
-- Invoke-WebRequest http://127.0.0.1:5005/health
-- Invoke-WebRequest http://127.0.0.1:5005/api/stocks
-- Invoke-WebRequest http://127.0.0.1:5005/
+```powershell
+docker compose -f Task1/artifacts/app/docker/docker-compose.yml up --build -d
+```
 
 Results:
-- /health returned HTTP 200 and JSON status "ok".
-- /api/stocks returned HTTP 200 and four sample educational stock records.
-- / returned HTTP 200 and served the FinSight Builder website HTML.
 
-Docker status:
-- Docker Compose reached the image build stage.
-- The build could not complete because Docker Hub token retrieval for python:3.11-slim timed out on the local network.
-- Retry after Docker Hub connectivity succeeds:
-  docker compose -f Task1/artifacts/app/docker-compose.yml up --build -d
+- `GET /` returned HTTP 200 and served the dashboard.
+- The homepage references `generated_market_banner.png`, shows the exact educational disclaimer, and includes the product-facing footer.
+- `GET /health` returned HTTP 200 with `status: ok`.
+- `GET /api/stocks` returned HTTP 200 with four fixed educational sample stocks.
+- `GET /api/risk-summary` returned HTTP 200.
+- `GET /stock/AAPL` returned HTTP 200 and served the stock detail page.
+- `GET /static/generated_market_banner.png` returned HTTP 200 with the generated PNG asset.
+- A valid `POST /api/watchlist` request returned HTTP 201.
+- A valid `POST /api/feedback` request returned HTTP 201.
+
+The Docker Compose container was running with port mapping `5005:5005`.

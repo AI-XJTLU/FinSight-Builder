@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stock Detail | FinSight Club Dashboard</title>
+  <style>
+    :root { --bg: #f3f6fa; --panel: #ffffff; --ink: #172033; --muted: #667085; --line: #d8e0ea; --green: #166534; --amber: #b45309; --red: #b91c1c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; }
+    .wrap { width: min(760px, calc(100% - 32px)); margin: 0 auto; }
+    header { background: #14324a; color: #fff; padding: 28px 0; }
+    main { padding: 26px 0 42px; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px; box-shadow: 0 10px 28px rgba(15, 35, 63, .06); }
+    h1, h2 { margin: 0 0 10px; }
+    .muted { color: var(--muted); }
+    .price { font-size: 1.2rem; font-weight: 800; }
+    .badge { display: inline-block; border-radius: 999px; padding: 4px 10px; font-size: .74rem; font-weight: 800; text-transform: uppercase; }
+    .low { background: #dcfce7; color: var(--green); }
+    .medium { background: #fef3c7; color: var(--amber); }
+    .high { background: #fee2e2; color: var(--red); }
+    a { color: #1f6f50; font-weight: 800; }
+    .back { display: inline-block; margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <header><div class="wrap"><h1>FinSight Club Dashboard</h1><div>Educational stock briefing detail</div></div></header>
+  <main class="wrap">
+    <section id="detail" class="panel"><p>Loading stock detail...</p></section>
+    <a class="back" href="/">Back to dashboard</a>
+  </main>
+  <script>
+    const detail = document.getElementById("detail");
+    const ticker = decodeURIComponent(window.location.pathname.split("/").filter(Boolean).pop() || "").toUpperCase();
+    function escapeHtml(value) { return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"); }
+    async function loadStockDetail() {
+      const response = await fetch(`/api/stocks/${encodeURIComponent(ticker)}`);
+      if (!response.ok) {
+        detail.innerHTML = "<h2>Stock not found</h2><p class=\"muted\">This ticker is not in the educational sample dataset.</p>";
+        return;
+      }
+      const data = await response.json();
+      const stock = data.stock;
+      detail.innerHTML = `<h2>${escapeHtml(stock.ticker)} - ${escapeHtml(stock.name)}</h2><p class="muted">${escapeHtml(stock.sector)}</p><p class="price">$${Number(stock.mock_price).toFixed(2)}</p><span class="badge ${escapeHtml(stock.risk_level)}">${escapeHtml(stock.risk_level)} risk</span><h3>Educational risk briefing</h3><p>${escapeHtml(stock.briefing)}</p><p class="muted">${escapeHtml(data.disclaimer)}</p>`;
+    }
+    loadStockDetail().catch(() => { detail.innerHTML = "<h2>Unable to load stock detail</h2><p class=\"muted\">Please return to the dashboard and try again.</p>"; });
+  </script>
+</body>
+</html>

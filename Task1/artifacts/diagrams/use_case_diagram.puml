@@ -1,45 +1,24 @@
 @startuml
 left to right direction
-skinparam linetype ortho
-skinparam packageStyle rectangle
-skinparam actorStyle awesome
-title FinSight Builder Use Case Diagram
-actor "Student Developer" as Developer
-actor "Learner User" as Learner
-actor "Coursework Marker" as Marker
-rectangle "FinSight Builder" {
-  package "Generation workflow" {
-    usecase "Generate SDLC
-documentation" as UC1
-    usecase "Generate UML
-diagrams" as UC2
-    usecase "Generate Flask API
-and website" as UC3
-    usecase "Display generated
-image" as UC4
-  }
-  package "Learner interaction" {
-    usecase "View educational
-risk briefings" as UC5
-    usecase "Add ticker to
-watchlist" as UC6
-    usecase "Submit
-feedback" as UC7
-  }
-  package "Assessment evidence" {
-    usecase "Run tests and
-deployment evidence" as UC8
-    usecase "Review generated
-artifacts" as UC9
-  }
+title FinSight Club Dashboard Use Case Diagram
+actor "Beginner Student Investor" as Beginner
+actor "Finance Club Member" as Member
+actor "Club Organiser" as Organiser
+actor "Finance Workshop Facilitator" as Facilitator
+rectangle "FinSight Club Dashboard" {
+  usecase "View watchlist dashboard" as UC1
+  usecase "Read risk briefing" as UC2
+  usecase "Add supported ticker" as UC3
+  usecase "Submit session feedback" as UC4
+  usecase "View risk summary" as UC5
 }
-Developer --> UC1
-Developer --> UC2
-Developer --> UC3
-Developer --> UC4
-Learner --> UC5
-Learner --> UC6
-Learner --> UC7
-Marker --> UC8
-Marker --> UC9
+Beginner -- UC1
+Beginner -- UC2
+Member -- UC1
+Member -- UC2
+Member -- UC3
+Member -- UC5
+Organiser -- UC4
+Organiser -- UC5
+Facilitator -- UC1
 @enduml

@@ -1,10 +1,2 @@
-Command: python -m pytest Task1/artifacts/app/tests
-============================= test session starts =============================
-platform win32 -- Python 3.10.20, pytest-7.4.2, pluggy-1.6.0
-rootdir: 2472811-Feiyu_Chen
-plugins: anyio-4.13.0, cov-7.1.0
-collected 9 items
-
-Task1\artifacts\app\tests\test_app.py .........                          [100%]
-
-============================== 9 passed in 0.39s ==============================
+...........                                                              [100%]
+11 passed in 0.26s

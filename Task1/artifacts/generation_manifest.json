@@ -1,161 +1,28 @@
-[
-  {
-    "artifact": "live_llm_generation_sample",
-    "source_type": "LLM draft rejected; reviewed correction used",
-    "output_path": "Task1\\artifacts\\llm_evidence\\live_llm_generation_sample.md",
-    "validation_checks": [
-      "Secret values not printed",
-      "No invented endpoints/libraries/diagrams/screenshots/deployment evidence",
-      "No financial advice or prediction",
-      "Artifact saved under llm_evidence",
-      "screenshot evidence status is not explicit enough"
-    ],
-    "next_stage_use": "Provides explicit evidence of live LLM integration while preserving reproducible fallback execution",
-    "software_marking_criteria": [
-      "AI-specific tooling",
-      "documentation generation",
-      "notebook professional structure"
-    ],
-    "provider_model": "DeepSeek / deepseek-chat"
-  },
-  {
-    "artifact": "problem_statement",
-    "source_type": "reviewed fallback",
-    "output_path": "Task1\\artifacts\\problem_statement.md",
-    "validation_checks": [
-      "Markdown heading present",
-      "No prediction/trading/advice scope",
-      "Mentions generated software evidence"
-    ],
-    "next_stage_use": "Grounds personas and PRD",
-    "software_marking_criteria": [
-      "documentation generation",
-      "notebook professional structure",
-      "AI-specific tooling"
-    ]
-  },
-  {
-    "artifact": "personas",
-    "source_type": "reviewed fallback",
-    "output_path": "Task1\\artifacts\\personas.md",
-    "validation_checks": [
-      "Three stakeholders present",
-      "Goals/frustrations/success criteria included",
-      "Linked to requirements"
-    ],
-    "next_stage_use": "Informs PRD priorities and user stories",
-    "software_marking_criteria": [
-      "documentation generation",
-      "notebook professional structure",
-      "AI-specific tooling"
-    ]
-  },
-  {
-    "artifact": "prd",
-    "source_type": "reviewed fallback",
-    "output_path": "Task1\\artifacts\\prd.md",
-    "validation_checks": [
-      "Functional and non-functional requirements present",
-      "Constraints, assumptions, risks, acceptance criteria present",
-      "No financial advice scope"
-    ],
-    "next_stage_use": "Drives user stories, API specification, and implementation scope",
-    "software_marking_criteria": [
-      "documentation generation",
-      "notebook professional structure",
-      "AI-specific tooling"
-    ]
-  },
-  {
-    "artifact": "user_stories",
-    "source_type": "reviewed fallback",
-    "output_path": "Task1\\artifacts\\user_stories.json",
-    "validation_checks": [
-      "Valid JSON list",
-      "Acceptance criteria present",
-      "Stories map to endpoints and tests"
-    ],
-    "next_stage_use": "Maps requirements into API and pytest coverage",
-    "software_marking_criteria": [
-      "documentation generation",
-      "notebook professional structure",
-      "testing practices",
-      "AI-specific tooling"
-    ]
-  },
-  {
-    "artifact": "api_spec",
-    "source_type": "reviewed fallback",
-    "output_path": "Task1\\artifacts\\api_spec.md",
-    "validation_checks": [
-      "All required endpoints present",
-      "Validation behavior documented",
-      "Mapped to story IDs and tests"
-    ],
-    "next_stage_use": "Informs Flask routes and API tests",
-    "software_marking_criteria": [
-      "documentation generation",
-      "notebook professional structure",
-      "testing practices",
-      "deployment evidence",
-      "AI-specific tooling"
-    ]
-  },
-  {
-    "artifact": "use_case_diagram",
-    "source_type": "professional deterministic fallback renderer",
-    "output_path": "Task1\\artifacts\\diagrams\\use_case_diagram.png",
-    "validation_checks": [
-      "PlantUML source saved",
-      "PNG output exists",
-      "render method recorded"
-    ],
-    "next_stage_use": "Supports Software evidence, report explanation, and presentation aid",
-    "software_marking_criteria": [
-      "automatic UML generation"
-    ]
-  },
-  {
-    "artifact": "sequence_diagram",
-    "source_type": "professional deterministic fallback renderer",
-    "output_path": "Task1\\artifacts\\diagrams\\sequence_diagram.png",
-    "validation_checks": [
-      "PlantUML source saved",
-      "PNG output exists",
-      "render method recorded"
-    ],
-    "next_stage_use": "Supports Software evidence, report explanation, and presentation aid",
-    "software_marking_criteria": [
-      "automatic UML generation"
-    ]
-  },
-  {
-    "artifact": "generated_image",
-    "source_type": "automatic programmatic image generation",
-    "output_path": "Task1\\artifacts\\app\\flask\\static\\generated_market_banner.png",
-    "validation_checks": [
-      "PNG file exists",
-      "Referenced by index.html",
-      "Contains not-financial-advice message"
-    ],
-    "next_stage_use": "Supports website generated-image marking criterion and Task2 deployment screenshot",
-    "software_marking_criteria": [
-      "website with generated image"
-    ]
-  },
-  {
-    "artifact": "pytest_tests",
-    "source_type": "generated from user stories and API spec, then stabilised",
-    "output_path": "Task1\\artifacts\\app\\tests\\test_app.py",
-    "validation_checks": [
-      "Covers success paths",
-      "Covers validation/error paths",
-      "Checks website/image and feedback retrieval"
-    ],
-    "next_stage_use": "Verifies Flask implementation locally and in CI",
-    "software_marking_criteria": [
-      "testing practices",
-      "CI/CD workflow evidence"
-    ]
-  }
-]
+{
+  "project": "FinSight Builder",
+  "generated_application": "FinSight Club Dashboard",
+  "business_problem": "A university finance club needs a lightweight educational web application to support weekly stock discussion sessions. Students need to organise a small stock watchlist, read simple educational risk briefings, understand basic risk categories, and submit feedback after each session. The club does not need stock prediction, trading advice, or investment recommendations. It needs a simple, deployable Flask web application that can be generated through an AI-driven software development workflow.",
+  "generated_files": [
+    "artifacts\\problem_statement.md",
+    "artifacts\\personas.md",
+    "artifacts\\prd.md",
+    "artifacts\\user_stories.json",
+    "artifacts\\api_spec.md",
+    "artifacts\\references.md",
+    "artifacts\\diagrams\\use_case_diagram.puml",
+    "artifacts\\diagrams\\use_case_diagram.png",
+    "artifacts\\diagrams\\sequence_diagram.puml",
+    "artifacts\\diagrams\\sequence_diagram.png",
+    "artifacts\\app\\flask\\main.py",
+    "artifacts\\app\\flask\\index.html",
+    "artifacts\\app\\flask\\stock_detail.html",
+    "artifacts\\app\\flask\\requirements.txt",
+    "artifacts\\app\\flask\\static\\generated_market_banner.png",
+    "artifacts\\app\\tests\\test_app.py",
+    "artifacts\\app\\docker\\Dockerfile",
+    "artifacts\\app\\docker\\docker-compose.yml",
+    "artifacts\\app\\.github\\workflows\\ci.yml"
+  ],
+  "missing": [],
+  "boundary": "Educational sample data only; no prediction, trading advice, or investment recommendation functionality."
+}

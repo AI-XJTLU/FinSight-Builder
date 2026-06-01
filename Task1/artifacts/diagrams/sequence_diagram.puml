@@ -1,23 +1,18 @@
 @startuml
-title FinSight Builder Dashboard and API Sequence
-autonumber
-actor "Learner User" as User
-participant "Browser UI" as Browser
-participant "Flask Routes" as Flask
-participant "API Layer" as API
-database "Sample Stock Data" as Data
+actor "Finance Club Member" as User
+participant Browser
+participant "Flask App" as Flask
+participant "In-memory sample data" as Data
 User -> Browser: Open dashboard
 Browser -> Flask: GET /
-Flask --> Browser: index.html with generated image reference
-Browser -> API: GET /api/stocks
-API -> Data: Read fixed sample stock data
-Data --> API: Stock records
-API --> Browser: JSON stock list + disclaimer
-Browser --> User: Render stock cards and generated banner
-User -> Browser: Submit watchlist ticker or feedback
-Browser -> API: POST /api/watchlist or /api/feedback
-API -> Data: Validate ticker or input fields
-API --> Browser: JSON success or validation error
-Browser --> User: Show result
-note over API,Data: Educational sample data only; no prediction or financial advice.
+Flask --> Browser: index.html with generated banner
+Browser -> Flask: GET /api/stocks
+Flask -> Data: Read fixed sample stocks
+Data --> Flask: Stock list
+Flask --> Browser: JSON stock briefings
+User -> Browser: Add ticker or submit feedback
+Browser -> Flask: POST /api/watchlist or POST /api/feedback
+Flask -> Data: Validate and store in memory
+Flask --> Browser: JSON response
+Browser --> User: Update dashboard status
 @enduml

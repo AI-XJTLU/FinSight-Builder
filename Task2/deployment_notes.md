@@ -1,37 +1,53 @@
-# Deployment Notes
+# FinSight Builder Deployment Notes
 
-Application: FinSight Builder educational stock watchlist and risk briefing.
+Run these commands from the repository root after reviewing the generated artifacts.
 
-Local test command:
-
-```powershell
-python -m pytest Task1/artifacts/app/tests
-```
-
-Docker deployment command:
+## Local tests
 
 ```powershell
-docker compose -f Task1/artifacts/app/docker-compose.yml up --build
+python -m pytest Task1/artifacts/app/tests -q
 ```
 
-Expected URLs:
-- Website: `http://127.0.0.1:5005/`
-- Health API: `http://127.0.0.1:5005/health`
-- Stock API: `http://127.0.0.1:5005/api/stocks`
+Save real output to `Task2/test_results/pytest_output.txt` only after the command has been run.
 
-Captured evidence:
-- Git commit history evidence: `screenshots/01_commit_records.png`.
-- Docker deployed website screenshot showing the generated banner: `screenshots/02_docker_deployed_website.png`.
-- API JSON evidence: `screenshots/04_api_health_or_stocks_optional.png`.
-- Docker container/log evidence: `screenshots/05_docker_container_optional.png`.
+## Run Flask locally
 
-Evidence still to capture after GitHub access is restored:
-- GitHub Actions success screenshot: `screenshots/03_github_actions_success.png`.
+```powershell
+python Task1/artifacts/app/flask/main.py
+```
 
-Current verification status:
-- Local pytest passed: 6 tests passed.
-- The notebook was executed successfully using the Python environment located under `anaconda3\envs\ai_in_se_cw`.
-- Local Flask runtime check passed: `/health`, `/api/stocks`, and `/` each returned HTTP 200 from `http://127.0.0.1:5005`.
-- Docker Compose deployment passed after pulling `docker.m.daocloud.io/python:3.11-slim`, tagging it as `python:3.11-slim`, and running `docker compose -f Task1/artifacts/app/docker-compose.yml up --build -d`.
-- Docker container evidence, website evidence, API evidence, pytest output, and runtime logs are saved under `screenshots/` and `test_results/`.
-- Local Git contains seven meaningful commits, but pushing to GitHub is currently blocked by local access configuration: SSH returns `Permission denied (publickey)`, HTTPS direct access is reset, and the configured proxy `127.0.0.1:7890` is not listening.
+Open:
+
+```text
+http://127.0.0.1:5005/
+http://127.0.0.1:5005/health
+http://127.0.0.1:5005/api/stocks
+```
+
+## Run with Docker Compose
+
+```powershell
+docker compose -f Task1/artifacts/app/docker/docker-compose.yml up --build
+```
+
+Open `http://127.0.0.1:5005/` and capture real screenshots only after the container is running.
+
+Stop the container with:
+
+```powershell
+docker compose -f Task1/artifacts/app/docker/docker-compose.yml down
+```
+
+## GitHub Actions
+
+Use `Task2/github_workflow_copy/ci.yml` as the generated workflow copy. A success screenshot should be added only after the workflow has run on GitHub.
+
+## Manual screenshot checklist
+
+Capture screenshots manually after the current version has been pushed and deployed:
+
+1. GitHub commit history for version-control evidence.
+2. Docker-served dashboard at `http://127.0.0.1:5005/`, with the generated banner visible.
+3. Successful GitHub Actions workflow run showing pytest and Docker build steps.
+4. Recommended: `/health` or `/api/stocks` JSON response.
+5. Recommended: Docker Desktop container state or `docker compose ps` output.

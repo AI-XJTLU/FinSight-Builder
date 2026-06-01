@@ -1,35 +1,56 @@
 # Product Requirements Document
 
 ## Overview
-FinSight Builder is an AI-powered meta-software development notebook that generates a Flask API and website for a sample stock watchlist and educational risk briefing dashboard. The notebook itself is the main software engineering artifact: it demonstrates how prompts, LLM/fallback generation, human validation, UML, implementation, tests, CI/CD, Docker, and evidence collection connect.
+- FinSight Club Dashboard is a Flask API and website for weekly university finance club discussions.
+- The product presents fixed sample stocks, educational risk briefings, risk category summaries, and feedback collection.
 
-## Functional requirements
-- FR-001: Generate and save a problem statement, personas, PRD, user stories, and API specification.
-- FR-002: Generate and save PlantUML source and PNG UML evidence.
-- FR-003: Provide a Flask API with `/health`, `/api/stocks`, `/api/stocks/<ticker>`, `/api/watchlist`, `/api/feedback`, `/api/risk-summary`, and `/`.
-- FR-004: Provide a website that displays stock cards, risk summary, generated banner image, watchlist form, feedback form, and disclaimer.
-- FR-005: Generate pytest tests for success and validation/error paths.
-- FR-006: Generate Dockerfile, Docker Compose, and GitHub Actions workflow files.
+## Goals
+- Help students prepare for discussion with a small educational stock watchlist.
+- Explain low, medium, and high risk categories in plain English.
+- Let organisers collect feedback after each session.
 
-## Non-functional requirements
-- NFR-001: The notebook must rerun without exposing API keys.
-- NFR-002: The generated Flask application must run locally and in Docker on port 5005.
-- NFR-003: The project must avoid financial advice, prediction, and trading automation.
-- NFR-004: The final software package must contain a clean Task1/Task2 structure.
+## Non-Goals
+- The product is not a live market-data platform.
+- The product does not provide financial advice or real-money decision support.
+- The product does not require accounts or a persistent database.
 
-## Constraints and assumptions
-- Uses fixed educational sample stock data.
-- LLM generation is preferred when credentials are available; reviewed fallback keeps the notebook reproducible.
-- External image and PlantUML rendering services are optional, not required for successful reruns.
+## User Personas
+- Beginner Student Investor: needs approachable explanations and visible risk labels.
+- Finance Club Member: needs a focused watchlist and short risk context.
+- Club Organiser: needs feedback collection and predictable session materials.
+- Finance Workshop Facilitator: needs a teaching aid with clear educational boundaries.
 
-## Risks
-- R1: API key or network unavailable; mitigation: reviewed fallback outputs and local image fallback.
-- R2: PlantUML renderer unavailable; mitigation: local rendering attempts followed by explicit fallback status.
-- R3: Submission zip pollution; mitigation: clean packaging checklist.
+## Key Features
+- Stock briefing cards with ticker, company name, sector, mock price, risk level, and briefing.
+- Watchlist form for supported tickers.
+- Risk summary grouped by low, medium, and high categories.
+- Feedback form with rating validation.
 
-## Acceptance criteria
-- AC-001: Task1 contains exactly one notebook.
-- AC-002: Required generated artifacts exist under Task1/artifacts.
-- AC-003: `python -m pytest Task1/artifacts/app/tests` passes.
-- AC-004: Docker and GitHub Actions files exist and include pytest plus Docker build workflow.
-- AC-005: Task2 evidence requirements are listed and missing evidence is clearly identified.
+## User Flows
+- A student opens the dashboard, reviews stock cards, and reads the risk summary.
+- A member adds a supported ticker to the watchlist.
+- An organiser collects feedback after the session.
+
+## Functional Requirements
+- Serve the dashboard at `/` and JSON health data at `/health`.
+- Return stock list and single-ticker briefing data through API endpoints.
+- Validate watchlist and feedback submissions.
+- Display the generated market education banner and required disclaimer.
+
+## Non-Functional Requirements
+- Keep the interface responsive and readable for beginner users.
+- Use fixed sample data for reproducible demonstrations.
+- Return clear JSON errors for invalid input.
+
+## Constraints/Assumptions
+- Stock prices are mock values used only for education.
+- Watchlist and feedback can be stored in memory for the lightweight version.
+- The application should run locally with simple Python dependencies.
+
+## Success Metrics
+- Users can load the dashboard and see the generated image.
+- Users can add a supported ticker and submit valid feedback.
+- Invalid inputs return understandable errors.
+
+## Open Questions
+- Which sample stocks should the finance club prefer for future sessions?

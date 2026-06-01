@@ -1,22 +1,12 @@
-﻿
+Checked after Docker Compose deployment on 1 June 2026.
 
-StatusCode : 200
-Content    : {"count":4,"disclaimer":"For educational demonstration only. Not financ
-             ial advice.","stocks":[{"briefing":"Revenue depends on device cycles, s
-             ervices growth, supply chain resilience, and consumer demand.","mock_pr
-             ice":184.35,"name":"Apple Inc.","risk_level":"medium","sector":"Technol
-             ogy hardware","ticker":"AAPL"},{"briefing":"Diversified software and cl
-             oud revenue may reduce volatility, but AI infrastructure costs remain m
-             aterial.","mock_price":421.16,"name":"Microsoft Corporation","risk_leve
-             l":"low","sector":"Cloud and productivity software","ticker":"MSFT"},{"
-             briefing":"AI chip demand is strong, while valuation, export controls, 
-             and supply constraints increase uncertainty.","mock_price":912.44,"name
-             ":"NVIDIA Corporation","risk_level":"high","sector":"Semiconductors","t
-             icker":"NVDA"},{"briefing":"Margins, delivery growth, battery costs, re
-             gulation, and leadership attention can affect sentiment.","mock_price":
-             177.53,"name":"Tesla, Inc.","risk_level":"high","sector":"Electric vehi
-             cles","ticker":"TSLA"}]}
-             
+GET http://127.0.0.1:5005/api/stocks
+HTTP 200
 
+Returned 4 fixed educational sample stocks:
+- AAPL: medium risk
+- MSFT: low risk
+- NVDA: high risk
+- TSLA: high risk
 
-
+The response includes ticker, name, sector, mock_price, risk_level, briefing, and the educational disclaimer.

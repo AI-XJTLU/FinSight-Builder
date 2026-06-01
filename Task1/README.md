@@ -1,121 +1,45 @@
-# FinSight Builder — Task1 Software Component
+# FinSight Builder - Task1
 
-FinSight Builder is the Task1 software component for the DTS114TC AI Software Engineering coursework. It is an AI-assisted meta-software development project that generates and documents a small Flask API and single-page website for an educational stock watchlist and risk-briefing dashboard.
+FinSight Builder is the generator notebook for Task1. It follows an AI-DLC practical workflow to generate documentation, UML, Flask code, website code, an image asset, tests, Docker files, and a CI workflow file.
 
-The system uses sample, fixed educational stock data only. It does **not** provide stock prediction, trading signals, buy/sell advice, portfolio optimisation, or investment recommendations.
+The generated application is FinSight Club Dashboard, a Flask API and website for a university finance club's educational stock watchlist, risk briefings, risk summary, and session feedback.
 
-## Coursework scope
-
-Task1 contains the single required coursework notebook and all generated software artifacts.
-
-Main notebook:
+## Main Notebook
 
 ```text
 Task1/DTS114_FinSight_Builder.ipynb
 ```
 
-The notebook follows an AI-DLC-style workflow:
+Task1 should contain only this one notebook. Supporting generated files are stored under `Task1/artifacts/`.
+
+## Generated Product Files
 
 ```text
-Inception → Construction → Operation → Validation
+Task1/artifacts/
+  problem_statement.md
+  personas.md
+  prd.md
+  user_stories.json
+  api_spec.md
+  references.md
+  diagrams/
+    use_case_diagram.puml
+    use_case_diagram.png
+    sequence_diagram.puml
+    sequence_diagram.png
+  app/
+    flask/
+      main.py
+      index.html
+      stock_detail.html
+      requirements.txt
+      static/generated_market_banner.png
+    tests/test_app.py
+    docker/Dockerfile
+    docker/docker-compose.yml
 ```
 
-It generates or records evidence for:
-
-- SDLC documentation and requirements.
-- UML diagrams.
-- A functional Flask API.
-- A single-page educational website.
-- An automatically generated website image/banner.
-- Pytest-based validation.
-- Docker deployment support.
-- CI/CD workflow evidence support.
-- LLM / AI tooling evidence with human validation.
-
-## Key generated artifacts
-
-```text
-Task1/
-  DTS114_FinSight_Builder.ipynb
-  README.md
-  artifacts/
-    problem_statement.md
-    personas.md
-    prd.md
-    api_spec.md
-    user_stories.json
-    traceability_matrix.md
-    generation_manifest.json
-    references.md
-    software_rubric_coverage.md
-    llm_evidence/
-      live_llm_generation_sample.md
-    diagrams/
-      use_case_diagram.puml
-      use_case_diagram.png
-      sequence_diagram.puml
-      sequence_diagram.png
-      finsight_builder_workflow.png
-      render_status.json
-    app/
-      flask/
-        main.py
-        index.html
-        requirements.txt
-        static/generated_market_banner.png
-      tests/test_app.py
-      docker/Dockerfile
-      docker-compose.yml
-```
-
-## Functional scope
-
-The generated Flask app provides these endpoints:
-
-```text
-GET  /
-GET  /health
-GET  /api/stocks
-GET  /api/stocks/<ticker>
-GET  /api/watchlist
-POST /api/watchlist
-GET  /api/feedback
-POST /api/feedback
-GET  /api/risk-summary
-```
-
-The website displays:
-
-- The generated FinSight Builder banner image.
-- Sample stock educational briefing cards.
-- A risk summary panel.
-- API evidence links.
-- A watchlist form.
-- A feedback form.
-- An educational-only / no-financial-advice disclaimer.
-
-## Environment setup
-
-Use the course-provided conda environment file from the coursework package:
-
-```powershell
-conda env create -f ai_in_se_cw.yml
-conda activate ai_in_se_cw
-```
-
-If the environment already exists, activate it directly:
-
-```powershell
-conda activate ai_in_se_cw
-```
-
-Install Flask app dependencies if needed:
-
-```powershell
-pip install -r Task1/artifacts/app/flask/requirements.txt
-```
-
-## Run tests
+## Run Tests
 
 From the repository root:
 
@@ -123,13 +47,7 @@ From the repository root:
 python -m pytest Task1/artifacts/app/tests -q
 ```
 
-Expected result:
-
-```text
-9 passed
-```
-
-## Run the Flask app locally
+## Run the Flask App
 
 From the repository root:
 
@@ -137,7 +55,7 @@ From the repository root:
 python Task1/artifacts/app/flask/main.py
 ```
 
-Then open:
+Open:
 
 ```text
 http://127.0.0.1:5005/
@@ -156,83 +74,25 @@ http://127.0.0.1:5005/api/risk-summary
 From the repository root:
 
 ```powershell
-docker compose -f Task1/artifacts/app/docker-compose.yml up --build
+docker compose -f Task1/artifacts/app/docker/docker-compose.yml up --build
 ```
 
-Then open:
-
-```text
-http://127.0.0.1:5005/
-```
-
-To stop the container:
+To stop:
 
 ```powershell
-docker compose -f Task1/artifacts/app/docker-compose.yml down
+docker compose -f Task1/artifacts/app/docker/docker-compose.yml down
 ```
 
-## LLM / AI tooling evidence
+## Boundary
 
-The project includes a safe LLM evidence pathway for DeepSeek when `DEEPSEEK_API_KEY` is available through an environment variable or `.env` file. API keys must never be printed, saved, or committed.
-
-Relevant files:
+The generated application uses fixed sample data and displays:
 
 ```text
-.env.example
-Task1/artifacts/llm_evidence/live_llm_generation_sample.md
-Task1/artifacts/generation_manifest.json
+For educational demonstration only. Not financial advice.
 ```
 
-If live LLM generation is unavailable or a draft output fails validation, the notebook keeps a reviewed fallback/correction path so that the coursework remains reproducible.
+Real API keys must be supplied through environment variables or a local `.env` file and must not be printed or committed.
 
-## Evidence and validation files
+## Source Transparency
 
-The following files connect Task1 outputs to the marking criteria and Task2 evidence:
-
-```text
-Task1/artifacts/generation_manifest.json
-Task1/artifacts/traceability_matrix.md
-Task1/artifacts/software_rubric_coverage.md
-Task1/artifacts/references.md
-Task2/test_results/pytest_output.txt
-Task2/test_results/website_interaction_check.txt
-Task2/screenshots/
-Task2/github_workflow_copy/ci.yml
-Task2/clean_packaging_checklist.md
-```
-
-## Submission boundary
-
-Final submission packaging should be handled from the repository root and should include only:
-
-```text
-2472811-Feiyu_Chen/
-  Task1/
-  Task2/
-```
-
-The final zip should exclude development-only files such as:
-
-```text
-.git/
-.github/
-.pytest_cache/
-__pycache__/
-.ipynb_checkpoints/
-*.pyc
-*.zip
-.env
-private keys
-temporary logs
-.flask_pid
-```
-
-See:
-
-```text
-Task2/clean_packaging_checklist.md
-```
-
-## Academic and financial boundary
-
-This software component demonstrates AI-assisted software engineering practice. The generated web app is for educational demonstration only. It uses fixed sample data and must not be interpreted as financial advice, trading advice, or investment recommendation.
+Implementation sources are cited in `Task1/artifacts/references.md`. The notebook uses the teacher-provided baseline utilities and records the official Flask, pytest, Docker, GitHub Actions, and PlantUML documentation used during implementation.

@@ -1,17 +1,59 @@
 # API Specification
 
-Base URL: `http://127.0.0.1:5005`
+Application: FinSight Club Dashboard
+Base URL: http://127.0.0.1:5005
+Disclaimer: For educational demonstration only. Not financial advice.
 
-| Endpoint | Method | Story IDs | Test case | Purpose | Validation / response notes |
-|---|---|---|---|---|---|
-| `/` | GET | US-001 | `test_index_page_and_generated_image_reference` | Serve generated dashboard website | Returns 200 and references `static/generated_market_banner.png`. |
-| `/health` | GET | US-005 | `test_health_endpoint` | Deployment health check | Returns service status and disclaimer. |
-| `/api/stocks` | GET | US-001 | `test_stocks_have_required_fields` | Return educational sample stock list | Includes ticker, name, sector, mock_price, risk_level, and briefing. |
-| `/api/stocks/<ticker>` | GET | US-002 | `test_stock_detail_and_unknown_ticker` | Return one educational stock briefing | Known ticker returns 200; unknown ticker returns 404. |
-| `/api/watchlist` | GET | US-003 | covered by watchlist integration path | Return in-memory watchlist | Returns selected sample stocks and ticker list. |
-| `/api/watchlist` | POST | US-003 | `test_watchlist_validation_and_success` | Add supported ticker to watchlist | Missing ticker returns 400; unsupported ticker returns 404; valid ticker returns 201. |
-| `/api/feedback` | GET | US-004 | `test_feedback_get_returns_submitted_items` | Return submitted feedback items | Returns list and count after POST. |
-| `/api/feedback` | POST | US-004 | `test_feedback_validation_and_success` | Submit feedback | Requires name, message, and rating; rating must be 1-5. |
-| `/api/risk-summary` | GET | US-001/US-005 | `test_risk_summary_shape` | Return counts by risk level | Returns low, medium, and high keys. |
+## Website Routes
+- `GET /`: serves the English website interface with the generated market education banner, sample stock cards, watchlist form, feedback form, and visible disclaimer.
+- `GET /stock/<ticker>`: serves the stock detail page, which loads the supported ticker briefing from `GET /api/stocks/<ticker>`.
 
-All financial content is fixed educational sample data only. The API does not provide investment recommendations, predictions, trading automation, or financial advice.
+## GET /health
+Returns service health information.
+
+Example response:
+```json
+{"status": "ok", "service": "FinSight Club Dashboard", "disclaimer": "For educational demonstration only. Not financial advice."}
+```
+
+## GET /api/stocks
+Returns the fixed educational sample stock list.
+
+Response fields include ticker, name, sector, mock_price, risk_level, and briefing.
+
+## GET /api/stocks/<ticker>
+Returns one stock briefing for a supported ticker. Unknown tickers return 404 with `stock_not_found`.
+
+## POST /api/watchlist
+Adds a supported ticker to the in-memory watchlist.
+
+Request body:
+```json
+{"ticker": "AAPL"}
+```
+Validation:
+- Missing ticker returns 400.
+- Unsupported ticker returns 404.
+
+## GET /api/watchlist
+Returns the current in-memory watchlist as both ticker symbols and stock objects.
+
+## GET /api/risk-summary
+Returns counts for low, medium, and high risk categories.
+
+## POST /api/feedback
+Accepts post-session feedback.
+
+Request body:
+```json
+{"name": "Student", "message": "Useful discussion", "rating": 5}
+```
+Validation:
+- name, message, and rating are required.
+- rating must be an integer from 1 to 5.
+
+## GET /api/feedback
+Returns submitted feedback items and a count.
+
+## Boundary
+The API returns educational sample data only. It does not provide prediction, trading advice, buy/sell recommendations, portfolio optimisation, investment recommendations, or real-money decision support.

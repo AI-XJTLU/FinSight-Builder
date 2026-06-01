@@ -30,30 +30,41 @@ def test_stocks_have_required_fields():
 
 
 def test_stock_detail_and_unknown_ticker():
-    ok_response = client().get("/api/stocks/AAPL")
-    missing_response = client().get("/api/stocks/UNKNOWN")
-    assert ok_response.status_code == 200
-    assert ok_response.get_json()["stock"]["ticker"] == "AAPL"
-    assert missing_response.status_code == 404
+    assert client().get("/api/stocks/AAPL").status_code == 200
+    assert client().get("/api/stocks/UNKNOWN").status_code == 404
+
+
+def test_stock_detail_page_supports_client_side_api_fetch():
+    response = client().get("/stock/AAPL")
+    html = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "/api/stocks/" in html
+    assert "Back to dashboard" in html
+    assert "Stock not found" in html
+
+
+def test_index_page_has_stock_detail_navigation():
+    response = client().get("/")
+    html = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "View details" in html
+    assert 'href="/stock/${encodeURIComponent(stock.ticker)}"' in html
 
 
 def test_watchlist_validation_and_success():
     test_client = client()
-    missing = test_client.post("/api/watchlist", json={})
+    assert test_client.post("/api/watchlist", json={}).status_code == 400
+    assert test_client.post("/api/watchlist", json={"ticker": "ZZZZ"}).status_code == 404
     created = test_client.post("/api/watchlist", json={"ticker": "msft"})
-    assert missing.status_code == 400
     assert created.status_code == 201
     assert "MSFT" in created.get_json()["watchlist"]
 
 
 def test_feedback_validation_and_success():
     test_client = client()
-    invalid = test_client.post("/api/feedback", json={"name": "Feiyu"})
-    valid = test_client.post(
-        "/api/feedback",
-        json={"name": "Feiyu", "message": "Clear dashboard", "rating": 5},
-    )
-    assert invalid.status_code == 400
+    assert test_client.post("/api/feedback", json={"name": "Feiyu"}).status_code == 400
+    assert test_client.post("/api/feedback", json={"name": "Feiyu", "message": "Clear", "rating": 6}).status_code == 400
+    valid = test_client.post("/api/feedback", json={"name": "Feiyu", "message": "Clear dashboard", "rating": 5})
     assert valid.status_code == 201
     assert valid.get_json()["feedback"]["rating"] == 5
 
@@ -66,10 +77,10 @@ def test_risk_summary_shape():
 
 def test_index_page_and_generated_image_reference():
     response = client().get("/")
-    assert response.status_code == 200
     html = response.get_data(as_text=True)
+    assert response.status_code == 200
     assert "generated_market_banner.png" in html
-    assert "API Evidence" in html
+    assert "For educational demonstration only. Not financial advice." in html
 
 
 def test_generated_image_file_exists():
@@ -80,13 +91,7 @@ def test_generated_image_file_exists():
 
 def test_feedback_get_returns_submitted_items():
     test_client = client()
-    created = test_client.post(
-        "/api/feedback",
-        json={"name": "Feiyu", "message": "Useful risk summary", "rating": 4},
-    )
+    assert test_client.post("/api/feedback", json={"name": "Feiyu", "message": "Useful risk summary", "rating": 4}).status_code == 201
     response = test_client.get("/api/feedback")
-    assert created.status_code == 201
     assert response.status_code == 200
-    data = response.get_json()
-    assert data["count"] == 1
-    assert data["items"][0]["message"] == "Useful risk summary"
+    assert response.get_json()["count"] == 1

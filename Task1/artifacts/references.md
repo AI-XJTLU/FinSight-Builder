@@ -1,10 +1,14 @@
 # Software Source Transparency
 
-- Teacher-provided baseline practical notebook: `chapter-10-from-copilot-to-creator/practical.ipynb`.
-- DTS114TC CW-Software-Component brief: Task1/Task2 requirements and Software marking criteria.
-- Flask documentation: used for route structure and JSON API conventions.
-- pytest documentation: used for local API and website behaviour tests.
-- Docker documentation: used for Dockerfile and Docker Compose deployment evidence.
-- GitHub Actions documentation: used for CI workflow evidence with pytest and Docker build.
-- PlantUML syntax/reference: used for `.puml` UML source files; local PlantUML was unavailable in this run, so the PNGs record professional deterministic fallback rendering.
-- DeepSeek API documentation/conventions: supported as an optional live LLM provider through `DEEPSEEK_API_KEY`; no API keys are stored in the project.
+The FinSight Builder notebook extends the teacher-provided DTS114TC baseline practical. The generated application uses the following references:
+
+1. DTS114TC teaching team. (2026). *From Co-pilot to Creator: Following the AI-Driven Development Lifecycle Methodology* [Jupyter notebook].
+2. Xi'an Jiaotong-Liverpool University. (2026). *DTS114TC CW-Software-Component* [Coursework brief].
+3. Pallets Projects. (n.d.). *Flask documentation*. https://flask.palletsprojects.com/
+4. pytest developers. (n.d.). *pytest documentation*. https://docs.pytest.org/
+5. Docker, Inc. (n.d.). *Dockerfile reference*. https://docs.docker.com/reference/dockerfile/
+6. Docker, Inc. (n.d.). *Docker Compose documentation*. https://docs.docker.com/compose/
+7. GitHub, Inc. (n.d.). *GitHub Actions documentation*. https://docs.github.com/actions
+8. PlantUML. (n.d.). *PlantUML language reference guide*. https://plantuml.com/guide
+
+Accessed 1 June 2026.

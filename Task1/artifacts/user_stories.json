@@ -1,67 +1,54 @@
-[
-  {
-    "id": "US-001",
-    "role": "learner user",
-    "story": "I want to open the dashboard so that I can review educational stock risk briefings with a visible disclaimer.",
-    "requirement": "FR-004",
-    "api_endpoint": "/ and /api/stocks",
-    "test_case": "test_index_page_and_generated_image_reference; test_stocks_have_required_fields",
-    "acceptance_criteria": [
-      "Home page returns 200.",
-      "Generated banner is referenced in index.html.",
-      "Stock cards include ticker, mock price, risk level, and briefing."
-    ]
-  },
-  {
-    "id": "US-002",
-    "role": "learner user",
-    "story": "I want to inspect one supported ticker so that I can focus on a single educational briefing.",
-    "requirement": "FR-003",
-    "api_endpoint": "/api/stocks/<ticker>",
-    "test_case": "test_stock_detail_and_unknown_ticker",
-    "acceptance_criteria": [
-      "Known ticker returns 200.",
-      "Unknown ticker returns 404.",
-      "Response includes disclaimer."
-    ]
-  },
-  {
-    "id": "US-003",
-    "role": "learner user",
-    "story": "I want to add a supported ticker to my watchlist so that I can track examples I am studying.",
-    "requirement": "FR-003",
-    "api_endpoint": "/api/watchlist",
-    "test_case": "test_watchlist_validation_and_success",
-    "acceptance_criteria": [
-      "Missing ticker returns 400.",
-      "Known ticker returns 201.",
-      "Unknown ticker returns 404."
-    ]
-  },
-  {
-    "id": "US-004",
-    "role": "learner user",
-    "story": "I want to submit feedback so that the app demonstrates validated form handling.",
-    "requirement": "FR-003",
-    "api_endpoint": "/api/feedback",
-    "test_case": "test_feedback_validation_and_success; test_feedback_get_returns_submitted_items",
-    "acceptance_criteria": [
-      "Missing fields return 400.",
-      "Valid feedback returns 201.",
-      "GET feedback returns the submitted item."
-    ]
-  },
-  {
-    "id": "US-005",
-    "role": "coursework marker",
-    "story": "I want to inspect tests, Docker, CI, and evidence outputs so that I can assess the software workflow.",
-    "requirement": "FR-005/FR-006",
-    "api_endpoint": "N/A",
-    "test_case": "test_risk_summary_shape plus CI pytest command",
-    "acceptance_criteria": [
-      "pytest tests pass.",
-      "CI workflow runs pytest and Docker build.",
-      "Task2 evidence file names are listed."
-    ]
-  }
-]
+{
+  "user_stories": [
+    {
+      "id": 1,
+      "role": "Beginner Student Investor",
+      "goal": "View sample stock cards with risk labels",
+      "benefit": "I can prepare for a finance club discussion with clear context",
+      "acceptance_criteria": [
+        "Stock cards show ticker, name, sector, mock price, risk level, and briefing",
+        "The required educational disclaimer is visible"
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Finance Club Member",
+      "goal": "Read a simple risk briefing for each sample stock",
+      "benefit": "I can discuss risk categories using shared language",
+      "acceptance_criteria": [
+        "Each stock has a plain-language briefing",
+        "Risk levels are low, medium, or high"
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Finance Club Member",
+      "goal": "Add a supported ticker to the watchlist",
+      "benefit": "I can focus the weekly discussion on selected examples",
+      "acceptance_criteria": [
+        "Supported tickers can be added",
+        "Missing or unsupported tickers return an error"
+      ]
+    },
+    {
+      "id": 4,
+      "role": "Club Organiser",
+      "goal": "Collect feedback after a session",
+      "benefit": "I can improve future discussion topics",
+      "acceptance_criteria": [
+        "Feedback requires name, message, and rating",
+        "Ratings outside 1 to 5 are rejected"
+      ]
+    },
+    {
+      "id": 5,
+      "role": "Finance Workshop Facilitator",
+      "goal": "Show risk category summaries",
+      "benefit": "Students can compare examples using consistent categories",
+      "acceptance_criteria": [
+        "The dashboard shows low, medium, and high counts",
+        "The API returns the same risk summary"
+      ]
+    }
+  ]
+}

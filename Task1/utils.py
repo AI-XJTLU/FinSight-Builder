@@ -1882,7 +1882,7 @@ def render_plantuml_diagram(puml_code, output_path="artifacts/diagram.png"):
         # or we wrote it above. Check for file existence before displaying.
         if os.path.exists(full_path):
             rel = os.path.relpath(full_path, _find_project_root())
-            print(f"✅ Diagram rendered and saved to: {rel}")
+            print(f"Diagram rendered and saved to: {rel}")
             try:
                 # IPython Image accepts filename= or url=. Use filename for local file.
                 display(IPyImage(filename=full_path))
@@ -1890,9 +1890,9 @@ def render_plantuml_diagram(puml_code, output_path="artifacts/diagram.png"):
                 # Best-effort fallback to markdown link if display fails.
                 display(Markdown(f"![diagram]({full_path})"))
         else:
-            print(f"⚠️ Diagram rendering returned no file. Result: {result}")
+            print(f"Warning: Diagram rendering returned no file. Result: {result}")
     except Exception as e:
-        print(f"❌ Error rendering PlantUML diagram: {e}")
+        print(f"Error rendering PlantUML diagram: {e}")
         raise
 
 def _encode_image_to_base64(image_path):

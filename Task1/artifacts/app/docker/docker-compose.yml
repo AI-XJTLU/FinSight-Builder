@@ -1,9 +1,9 @@
 services:
   finsight-builder:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile
-    container_name: finsight-builder
+    container_name: finsight-club-dashboard
     ports:
       - "5005:5005"
     environment:

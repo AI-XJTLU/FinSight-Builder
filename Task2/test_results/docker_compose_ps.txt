@@ -1,2 +1,4 @@
-﻿NAME               IMAGE                  COMMAND            SERVICE            CREATED         STATUS                  PORTS
-finsight-builder   app-finsight-builder   "python main.py"   finsight-builder   2 seconds ago   Up Less than a second   0.0.0.0:5005->5005/tcp, [::]:5005->5005/tcp
+Checked after Docker Compose deployment on 1 June 2026.
+
+NAME                      IMAGE                     COMMAND            SERVICE            STATUS   PORTS
+finsight-club-dashboard   docker-finsight-builder   "python main.py"   finsight-builder   Up       0.0.0.0:5005->5005/tcp, [::]:5005->5005/tcp

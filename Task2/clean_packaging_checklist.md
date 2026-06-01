@@ -13,7 +13,7 @@ Required internal structure:
 Before creating the final zip, check:
 
 - `Task1/` contains exactly one notebook: `DTS114_FinSight_Builder.ipynb`.
-- `Task2/screenshots/01_commit_records.png`, `02_docker_deployed_website.png`, and `03_github_actions_success.png` are present.
+- Current `Task2/screenshots/01_commit_records.png`, `02_docker_deployed_website.png`, and `03_github_actions_success.png` have been captured after the final commit, push, deployment, and CI run.
 - `Task2/test_results/pytest_output.txt` is present and shows passing tests.
 - No `.git/` directory is included.
 - No top-level `.github/` directory is included; if workflow evidence is needed, include only the copied file under `Task2/github_workflow_copy/ci.yml`.
@@ -23,10 +23,10 @@ Before creating the final zip, check:
 - No `.flask_pid` file is included.
 - The submitted archive should not contain a nested copy of itself or any other `*.zip` file.
 
-Recommended PowerShell command from the parent `CW` folder after cleanup:
+Recommended PowerShell approach from the parent `CW` folder after cleanup:
 
 ```powershell
-Compress-Archive -Path .\2472811-Feiyu_Chen\Task1,.\2472811-Feiyu_Chen\Task2 -DestinationPath .\2472811-Feiyu_Chen_clean.zip -Force
+Compress-Archive -Path .\_submission_build\2472811-Feiyu_Chen -DestinationPath .\2472811-Feiyu_Chen.zip -Force
 ```
 
 Do not create the final zip until GitHub Actions evidence has been captured and the working tree has been reviewed.

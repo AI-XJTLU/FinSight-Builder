@@ -1,19 +1,19 @@
 # Personas
 
-## Student Developer
-- Goals: build a reproducible AI software engineering notebook, show how prompts become artifacts, and produce runnable Flask/Docker/CI evidence.
-- Frustrations: opaque generated code, static documentation that does not connect to tests, and deployment evidence that is hard to reproduce.
-- Success criteria: every generated artifact has a source, validation checks, output path, and next-phase purpose; tests pass locally; Docker and CI files are present.
-- Linked requirements: documentation generation, UML generation, Flask implementation, pytest, Docker, CI workflow, Task2 evidence.
+Personas: FinSight Club Dashboard supports students and facilitators involved in weekly finance club learning sessions.
 
-## Learner User
-- Goals: open a simple dashboard, review sample stock risk briefings, add supported tickers to a watchlist, and submit feedback.
-- Frustrations: confusing finance dashboards, hidden assumptions, and advice-like wording.
-- Success criteria: visible non-advice disclaimer, clear sample data, validation feedback for unsupported tickers, and readable risk summaries.
-- Linked requirements: website home page, `/api/stocks`, `/api/stocks/<ticker>`, `/api/watchlist`, `/api/feedback`, `/api/risk-summary`.
+1. **Beginner Student Investor**
+   - **Responsibilities:** Prepare for discussion by reviewing sample stock cards and risk categories.
+   - **Needs:** Simple language, visible risk labels, and reassurance that the product is educational.
 
-## Coursework Marker
-- Goals: evaluate whether the project demonstrates AI-specific tooling, SDLC structure, UML, testing, workflow, version control, and deployment.
-- Frustrations: notebooks that only paste final outputs, missing traceability, missing screenshots, or generated files that cannot be rerun.
-- Success criteria: notebook follows a visible AI-DLC chain, generated artifacts are saved, tests pass, CI/Docker configuration exists, and Task2 evidence is named clearly.
-- Linked requirements: generation manifest, traceability matrix, rubric coverage matrix, screenshots, test output, and clean packaging checklist.
+2. **Finance Club Member**
+   - **Responsibilities:** Compare a small set of sample stocks before and during club sessions.
+   - **Needs:** A focused watchlist, short briefings, and clear low, medium, and high risk categories.
+
+3. **Club Organiser**
+   - **Responsibilities:** Guide weekly sessions and collect feedback from participants.
+   - **Needs:** A lightweight dashboard, reliable feedback form, and consistent session materials.
+
+4. **Finance Workshop Facilitator**
+   - **Responsibilities:** Help students discuss market examples using shared educational vocabulary.
+   - **Needs:** Clear risk summaries, non-advisory wording, and a website that can support classroom demonstrations.
