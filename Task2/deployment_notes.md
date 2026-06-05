@@ -1,53 +1,65 @@
-# FinSight Builder Deployment Notes
+﻿# Task 2 Deployment Notes
 
-Run these commands from the repository root after reviewing the generated artifacts.
+This document records the deployment evidence for the FinSight Builder CW-Software-Component.
 
-## Local tests
+## 1. Local Docker deployment
 
-```powershell
-python -m pytest Task1/artifacts/app/tests -q
-```
+The generated Flask application was first deployed locally with Docker Compose.
 
-Save real output to `Task2/test_results/pytest_output.txt` only after the command has been run.
+Docker Compose file:
 
-## Run Flask locally
+`Task1/artifacts/app/docker/docker-compose.yml`
 
-```powershell
-python Task1/artifacts/app/flask/main.py
-```
+The local Docker deployment exposed the application on:
 
-Open:
+`http://127.0.0.1:5005/`
 
-```text
-http://127.0.0.1:5005/
-http://127.0.0.1:5005/health
-http://127.0.0.1:5005/api/stocks
-```
+The local deployment evidence includes:
 
-## Run with Docker Compose
+- website homepage screenshot;
+- API endpoint screenshot;
+- Docker container running screenshot;
+- supporting command outputs in `test_results/`.
 
-```powershell
-docker compose -f Task1/artifacts/app/docker/docker-compose.yml up --build
-```
+This local deployment checked that the generated Flask app, dependencies, static banner image, API routes and port configuration could run in a repeatable containerised environment.
 
-Open `http://127.0.0.1:5005/` and capture real screenshots only after the container is running.
+## 2. Cloud deployment on Render
 
-Stop the container with:
+The deployment stage was also completed on Render as a cloud platform.
 
-```powershell
-docker compose -f Task1/artifacts/app/docker/docker-compose.yml down
-```
+Render service URL:
 
-## GitHub Actions
+`https://finsight-builder.onrender.com`
 
-Use `Task2/github_workflow_copy/ci.yml` as the generated workflow copy. A success screenshot should be added only after the workflow has run on GitHub.
+Render was configured from the organisation GitHub repository:
 
-## Manual screenshot checklist
+`AI-XJTLU/FinSight-Builder`
 
-Capture screenshots manually after the current version has been pushed and deployed:
+Deployment settings:
 
-1. GitHub commit history for version-control evidence.
-2. Docker-served dashboard at `http://127.0.0.1:5005/`, with the generated banner visible.
-3. Successful GitHub Actions workflow run showing pytest and Docker build steps.
-4. Recommended: `/health` or `/api/stocks` JSON response.
-5. Recommended: Docker Desktop container state or `docker compose ps` output.
+- Branch: `main`
+- Root Directory: `Task1/artifacts/app/flask`
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `gunicorn main:app --bind 0.0.0.0:$PORT`
+- Runtime: Python 3
+- Plan: Free
+
+The cloud deployment was checked through:
+
+- `https://finsight-builder.onrender.com/`
+- `https://finsight-builder.onrender.com/health`
+- `https://finsight-builder.onrender.com/api/stocks`
+
+The Render evidence shows that the Flask dashboard can run outside the local machine on a cloud-hosted service.
+
+## 3. CI/CD evidence
+
+GitHub Actions was used to run automated validation after commits. The workflow installs the Flask app dependencies, runs pytest tests, and checks the application build process.
+
+The workflow copy is stored at:
+
+`Task2/github_workflow_copy/ci.yml`
+
+The GitHub Actions success screenshot is stored in:
+
+`Task2/screenshots/03_github_actions_success.png`
